@@ -34,4 +34,4 @@ def weather(city,state,country):
         timeTemp = datetime.datetime.fromtimestamp(hour['dt'])
         hour['dt'] = pacific.localize(timeTemp)
 
-    return render_template('index.html',w=w,f=f,sunrise=sunrise,sunset=sunset)
+    return render_template('weather.html',w=w,f=f,sunrise=sunrise,sunset=sunset)

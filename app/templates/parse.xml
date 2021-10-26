@@ -1,0 +1,49 @@
+{
+    'coord': 
+        {
+            'lon': -122.2708, 
+            'lat': 37.8044
+        }, 
+    'weather': 
+        [
+            {'
+                id': 802, 
+                'main': 'Clouds', 
+                'description': 'scattered clouds', 
+                'icon': '03d'
+            }
+        ], 
+    'base': 'stations', 
+    'main': 
+        {
+            'temp': 61.3, 
+            'feels_like': 60.66, 
+            'temp_min': 57.87, 
+            'temp_max': 66.02, 
+            'pressure': 1012, 
+            'humidity': 75
+        }, 
+    'visibility': 10000, 
+    'wind': 
+        {
+            'speed': 8.01, 
+            'deg': 286, 
+            'gust': 15.99
+        }, 
+    'clouds': 
+        {
+            'all': 40
+        }, 
+    'dt': 1635203815, 
+    'sys': 
+        {
+            'type': 2, 
+            'id': 2041412, 
+            'country': 'US', 
+            'sunrise': 1635172051, 
+            'sunset': 1635211106
+        }, 
+    'timezone': -25200, 
+    'id': 5378538, 
+    'name': 'Oakland', 'cod': 200
+} 
