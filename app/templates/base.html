@@ -21,6 +21,15 @@
     <!--This is where the navbar is placed.  The navbar code is in the includes folder -->
         <!-- Flask has a messages feature called "Flash" where you can pass messages to the template from the code.  This is where 
           those messages are displayed -->
+
+        <div>
+          <a href="{{ url_for('index') }}">Home</a>
+          {% if current_user.is_anonymous %}
+          <a href="{{ url_for('login') }}">Login</a>
+          {% else %}
+          <a href="{{ url_for('logout') }}">Logout</a>
+          {% endif %}
+        </div>
         {% with messages = get_flashed_messages() %}
           {% if messages %}
           <div class="container-fluid">
