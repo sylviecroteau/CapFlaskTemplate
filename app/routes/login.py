@@ -1,5 +1,6 @@
 from app import app, login
-from flask import Flask, render_template, redirect, flash, url_for
+from werkzeug.urls import url_parse 
+from flask import Flask, render_template, redirect, flash, url_for, request
 from app.classes.data import User
 from app.classes.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user
@@ -19,7 +20,10 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
