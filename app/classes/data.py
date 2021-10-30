@@ -1,8 +1,8 @@
 from flask_login import UserMixin
-from app import login
-from mongoengine import EmailField, StringField, IntField, ReferenceField, DateTimeField
+from mongoengine import EmailField, StringField, IntField, ReferenceField, DateTimeField, CASCADE
 from flask_mongoengine import Document
 from werkzeug.security import generate_password_hash, check_password_hash
+import datetime as dt
 
 class User(UserMixin, Document):
     username = StringField()
@@ -17,6 +17,26 @@ class User(UserMixin, Document):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-@login.user_loader
-def load_user(id):
-    return User.objects.get(pk=id)
+class Post(Document):
+    author = ReferenceField('User',reverse_delete_rule=CASCADE) 
+    subject = StringField()
+    content = StringField()
+    createdate = DateTimeField(default=dt.datetime.utcnow)
+    modifydate = DateTimeField()
+
+    meta = {
+        'ordering': ['-createdate']
+    }
+
+class Comment(Document):
+    author = ReferenceField('User',reverse_delete_rule=CASCADE) 
+    post = ReferenceField('Post',reverse_delete_rule=CASCADE)
+    # This could be used to allow comments on comments
+    # comment = ReferenceField('Comment',reverse_delete_rule=CASCADE)
+    content = StringField('Comment')
+    createdate = DateTimeField(default=dt.datetime.utcnow)
+    modifydate = DateTimeField()
+
+    meta = {
+        'ordering': ['-createdate']
+    }

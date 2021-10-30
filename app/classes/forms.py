@@ -13,7 +13,6 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me?')
     submit = SubmitField()
 
-
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -39,3 +38,12 @@ class RegistrationForm(FlaskForm):
             pass
         else:
             raise ValidationError('Please use a different email address.')
+
+class PostForm(FlaskForm):
+    subject = StringField('Subject', validators=[DataRequired()])
+    content = TextAreaField('Post', validators=[DataRequired()])
+    submit = SubmitField('Post')
+
+class CommentForm(FlaskForm):
+    content = TextAreaField('Comment', validators=[DataRequired()])
+    submit = SubmitField('Comment')

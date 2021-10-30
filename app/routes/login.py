@@ -1,8 +1,12 @@
 from app import app, login
-from flask import Flask, render_template, redirect,flash,url_for
+from flask import Flask, render_template, redirect, flash, url_for
 from app.classes.data import User
 from app.classes.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user
+
+@login.user_loader
+def load_user(id):
+    return User.objects.get(pk=id)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
