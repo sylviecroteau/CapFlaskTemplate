@@ -1,5 +1,6 @@
 from flask.helpers import url_for
 from app import app, login
+import mongoengine.errors
 from flask import render_template, flash, redirect
 from flask_login import current_user
 from app.classes.data import Post, Comment
@@ -30,7 +31,12 @@ def postNew():
 @login_required
 def post(postID):
     post = Post.objects.get(id=postID)
-    return render_template('post.html',post=post)
+    try:
+        comments = Comment.objects(post=post)
+    except mongoengine.errors.DoesNotExist:
+        comments = None
+
+    return render_template('post.html',post=post,comments=comments)
 
 @app.route('/post/list')
 @login_required
@@ -70,3 +76,46 @@ def postEdit(postID):
     form.content.data = editPost.content
 
     return render_template('postform.html',form=form)
+
+@app.route('/comment/new/<postID>', methods=['GET', 'POST'])
+@login_required
+def commentNew(postID):
+    post = Post.objects.get(id=postID)
+    form = CommentForm()
+    if form.validate_on_submit():
+        newComment = Comment(
+            author = current_user.id,
+            post = postID,
+            content = form.content.data
+        )
+        newComment.save()
+        return redirect(url_for('post',postID=postID))
+    return render_template('commentform.html',form=form,post=post)
+
+@app.route('/comment/edit/<commentID>', methods=['GET', 'POST'])
+@login_required
+def commentEdit(commentID):
+    editComment = Comment.objects.get(id=commentID)
+    if current_user != editComment.author:
+        flash("You can't edit a comment you didn't write.")
+        return redirect(url_for('post',postID=editComment.post.id))
+    post = Post.objects.get(id=editComment.post.id)
+    form = CommentForm()
+    if form.validate_on_submit():
+        editComment.update(
+            content = form.content.data,
+            modifydate = dt.datetime.utcnow
+        )
+        return redirect(url_for('post',postID=editComment.post.id))
+
+    form.content.data = editComment.content
+
+    return render_template('commentform.html',form=form,post=post)   
+
+@app.route('/comment/delete/<commentID>')
+@login_required
+def commentDelete(commentID): 
+    deleteComment = Comment.objects.get(id=commentID)
+    deleteComment.delete()
+    flash('The comments was deleted.')
+    return redirect(url_for('post',postID=deleteComment.post.id)) 
