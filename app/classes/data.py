@@ -1,6 +1,7 @@
 from flask_login import UserMixin
-from mongoengine import EmailField, StringField, IntField, ReferenceField, DateTimeField, CASCADE
+from mongoengine import FileField, EmailField, StringField, IntField, ReferenceField, DateTimeField, CASCADE
 from flask_mongoengine import Document
+#from mongoengine.fields import FileField
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime as dt
 
@@ -10,6 +11,7 @@ class User(UserMixin, Document):
     fname = StringField()
     lname = StringField()
     email = EmailField()
+    image = FileField()
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

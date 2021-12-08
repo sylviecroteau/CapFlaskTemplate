@@ -1,4 +1,5 @@
 from flask.app import Flask
+from flask import flash
 from flask_wtf import FlaskForm
 from mongoengine.fields import EmailField
 import mongoengine.errors
@@ -15,9 +16,7 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    fname = StringField('First Name', validators=[DataRequired()])
-    lname = StringField('Last Name', validators=[DataRequired()])    
+    email = StringField('Email', validators=[DataRequired(), Email()])  
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
@@ -25,19 +24,26 @@ class RegistrationForm(FlaskForm):
 
     def validate_username(self, username):
         try:
-            user = User.objects.get(username=username.data)
+            User.objects.get(username=username.data)
         except mongoengine.errors.DoesNotExist:
-            pass
+            flash(f"{username.data} is available.")
         else:
-            raise ValidationError('Please use a different email address.')
+            raise ValidationError('This username is taken.')
 
     def validate_email(self, email):
         try:
-            user = User.objects.get(email=email.data)
+            User.objects.get(email=email.data)
         except mongoengine.errors.DoesNotExist:
-            pass
+            flash(f'{email.data} is a unique email address.')
         else:
-            raise ValidationError('Please use a different email address.')
+            raise ValidationError('This email address is already in use. if you have forgotten your credentials you can try to recover your account.')
+
+class ProfileForm(FlaskForm):
+    #email = StringField('Email', validators=[DataRequired(), Email()])
+    fname = StringField('First Name', validators=[DataRequired()])
+    lname = StringField('Last Name', validators=[DataRequired()]) 
+    image = FileField("Image") 
+    submit = SubmitField('Post')
 
 class PostForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])

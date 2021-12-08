@@ -18,11 +18,7 @@
                 {% if loop.index == 1 %}
                 <h3 class="display-5">Date</h3>
                 {% endif %}
-                {% if post.author == current_user %}
-                    <a href="/post/delete/{{post.id}}">
-                        <img width="20" class="bottom-image" src="/static/delete.png">
-                    </a>
-                {% endif %}
+
                 <a href="/post/{{post.id}}">
                     {{moment(post.createdate).calendar()}}
                 </a>
