@@ -3,8 +3,35 @@ from app import app, login
 from werkzeug.urls import url_parse 
 from flask import render_template, redirect, flash, url_for, request
 from app.classes.data import User
-from app.classes.forms import LoginForm, RegistrationForm, ProfileForm
+from app.classes.forms import LoginForm, RegistrationForm, ResetPasswordForm
 from flask_login import current_user, login_user, logout_user
+from app.classes.forms import ResetPasswordRequestForm
+from .mail import send_email
+
+def send_password_reset_email(user):
+    token = user.get_reset_password_token()
+    send_email('[Capstone] Reset Your Password',
+               sender='swright@ousd.org',
+               recipients=[user.email],
+               text_body=render_template('email/reset_password.txt',
+                                         user=user, token=token),
+               html_body=render_template('email/reset_password.html',
+                                         user=user, token=token))
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        user.save()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
 
 @login.user_loader
 def load_user(id):
@@ -52,29 +79,15 @@ def register():
 
     return render_template('register.html', title='Register', form=form)
 
-@app.route('/myprofile/edit', methods=['GET','POST'])
-@login_required
-def profileEdit():
-    form = ProfileForm()
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ResetPasswordRequestForm()
     if form.validate_on_submit():
-        currUser = User.objects.get(id=current_user.id)
-        currUser.update(
-            lname = form.lname.data,
-            fname = form.fname.data
-        )
-        if form.image.data:
-            if currUser.image:
-                currUser.image.delete()
-            currUser.image.put(form.image.data, content_type = 'image/jpeg')
-            currUser.save()
-        return redirect(url_for('myProfile'))
-
-    form.fname.data = current_user.fname
-    form.lname.data = current_user.lname
-
-    return render_template('profileform.html', form=form)
-
-@app.route('/myprofile')
-@login_required
-def myProfile():
-    return render_template('profilemy.html')
+        user = User.objects.get(email=form.email.data)
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html',title='Reset Password', form=form)

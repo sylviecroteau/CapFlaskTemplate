@@ -21,6 +21,11 @@
             <tr><td colspan="2">{{form.submit()}}</td></tr>
         </table>
         </form>
+
+        <p>
+            Forgot Your Password?
+            <a href="{{ url_for('reset_password_request') }}">Click to Reset It</a>
+        </p>
         
     </div>
 {% endblock %}
