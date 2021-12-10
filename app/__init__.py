@@ -6,6 +6,7 @@ import os
 from flask_moment import Moment
 import base64
 from flask_login import LoginManager
+from flask_mail import Mail
 
 app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.do')
@@ -16,6 +17,18 @@ moment = Moment(app)
 
 login = LoginManager(app)
 login.login_view = 'login'
+
+app.config.update(dict(
+   DEBUG = True,
+   MAIL_SERVER = 'smtp.googlemail.com',
+   MAIL_PORT = 587,
+   MAIL_USE_TLS = 1,
+   MAIL_USE_SSL = 0,
+   MAIL_USERNAME = os.environ.get('MAIL_USERNAME'),
+   MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD'),
+))
+
+mail = Mail(app)
 
 def base64encode(img):
     image = base64.b64encode(img)
