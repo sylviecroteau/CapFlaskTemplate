@@ -1,3 +1,5 @@
+# These are the routes for logging in a a user and dealing with passwords
+
 from flask_login.utils import login_required
 from app import app, login
 from werkzeug.urls import url_parse 
@@ -8,37 +10,16 @@ from flask_login import current_user, login_user, logout_user
 from app.classes.forms import ResetPasswordRequestForm
 from .mail import send_email
 
-def send_password_reset_email(user):
-    token = user.get_reset_password_token()
-    send_email('[Capstone] Reset Your Password',
-               sender='swright@ousd.org',
-               recipients=[user.email],
-               text_body=render_template('email/reset_password.txt',
-                                         user=user, token=token),
-               html_body=render_template('email/reset_password.html',
-                                         user=user, token=token))
-
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
-def reset_password(token):
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    user = User.verify_reset_password_token(token)
-    if not user:
-        return redirect(url_for('index'))
-    form = ResetPasswordForm()
-    if form.validate_on_submit():
-        user.set_password(form.password.data)
-        user.save()
-        flash('Your password has been reset.')
-        return redirect(url_for('login'))
-    return render_template('reset_password.html', form=form)
-
+# This function is called by other functions to load the current user in to memory
 @login.user_loader
 def load_user(id):
     return User.objects.get(pk=id)
 
+# This is the route that a user uses to login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # this if statement can be really useful to see if the user that is requesting this
+    # page is currently loggedin 
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -54,11 +35,13 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
+# Logout route and function
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+# Route and function to register a new account
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -78,6 +61,36 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html', title='Register', form=form)
+
+# The following functions are for password reset
+# This is a helper function that sends a password reset email to a user who has requested
+# This funtion does not have a route and is called by other functions.
+def send_password_reset_email(user):
+    token = user.get_reset_password_token()
+    send_email('[Capstone] Reset Your Password',
+               sender='swright@ousd.org',
+               recipients=[user.email],
+               text_body=render_template('email/reset_password.txt',
+                                         user=user, token=token),
+               html_body=render_template('email/reset_password.html',
+                                         user=user, token=token))
+
+# This is the password reset route and function. This function is called when the 
+# user requests a password reset
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        user.save()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():

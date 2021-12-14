@@ -1,4 +1,5 @@
-# Every level/folder of a Python application has an __init__.py file. The purpose of this file is to connect the levels
+# Every level/folder of a Python application has an __init__.py file. 
+# The purpose of this file is to connect the levels
 # of the app to each other. 
 from mongoengine import connect
 from flask import Flask
@@ -7,12 +8,16 @@ from flask_moment import Moment
 import base64
 from flask_login import LoginManager
 from flask_mail import Mail
+from utils import secrets
+
+secrets = secrets.getSecrets()
 
 app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.do')
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY") or os.urandom(20)
 
-connect("capstone", host=f"{os.environ.get('mongodb_host')}/capstone?retryWrites=true&w=majority")
+#connect("capstone", host=f"{os.environ.get('mongodb_host')}/capstone?retryWrites=true&w=majority")
+connect("capstone", host=f"{secrets['mongodb_host']}/capstone?retryWrites=true&w=majority")
 moment = Moment(app)
 
 login = LoginManager(app)
@@ -24,8 +29,10 @@ app.config.update(dict(
    MAIL_PORT = 587,
    MAIL_USE_TLS = 1,
    MAIL_USE_SSL = 0,
-   MAIL_USERNAME = os.environ.get('MAIL_USERNAME'),
-   MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD'),
+   #MAIL_USERNAME = os.environ.get('MAIL_USERNAME'),
+   #MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD'),
+   MAIL_USERNAME = secrets['MAIL_USERNAME'],
+   MAIL_PASSWORD = secrets['MAIL_PASSWORD']
 ))
 
 mail = Mail(app)

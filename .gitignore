@@ -1,3 +1,6 @@
+# This file defines what should be ignored by github and NOT synced.  
+# most importantly it won't send your secretes file.
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -65,6 +68,8 @@ db.sqlite3-journal
 instance/
 .webassets-cache
 __pycache__
+.pyc
+*.pyc
 
 # Scrapy stuff:
 .scrapy
@@ -146,3 +151,5 @@ CloudRunNotes.txt
 zscripts.py
 charts.py
 /scripts
+secrets.py
+/utils

@@ -1,8 +1,12 @@
+# This is where all the database tables are defined. Each class name is the name of the data collection
+# and each item is a data 'field' that stores a piece of data.  Data fields have types
+# like IntField, StringField etc.  This uses the Mongoengine Python Library. When you interact with the 
+# data you are creating an onject that is an instance of the class.
+
 from app import app
 from flask_login import UserMixin
-from mongoengine import FileField, EmailField, StringField, IntField, ReferenceField, DateTimeField, CASCADE
+from mongoengine import FileField, EmailField, StringField, ReferenceField, DateTimeField, CASCADE
 from flask_mongoengine import Document
-#from mongoengine.fields import FileField
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime as dt
 import jwt

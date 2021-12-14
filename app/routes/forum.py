@@ -1,3 +1,7 @@
+# These routes are an example of how to use data, forms and routes to create
+# a forum where a posts and comments on those posts can be
+# Created, Read, Updated or Deleted (CRUD)
+
 from flask.helpers import url_for
 from app import app, login
 import mongoengine.errors
@@ -7,6 +11,17 @@ from app.classes.data import Post, Comment
 from app.classes.forms import PostForm, CommentForm
 from flask_login import login_required
 import datetime as dt
+
+# This is the route to list all posts
+@app.route('/post/list')
+@login_required
+def postList():
+    # this creates a mongoengine object that contains all the posts
+    posts = Post.objects()
+    # this renders the posts.html page and sends the posts to the 
+    # template as a variable with all the posts in the object and
+    # can be displayed with a for loop in the template
+    return render_template('posts.html',posts=posts)
 
 @app.route('/post/new', methods=['GET', 'POST'])
 @login_required
@@ -37,12 +52,6 @@ def post(postID):
         comments = None
 
     return render_template('post.html',post=post,comments=comments)
-
-@app.route('/post/list')
-@login_required
-def postList():
-    posts = Post.objects()
-    return render_template('posts.html',posts=posts)
 
 @app.route('/post/delete/<postID>')
 @login_required
