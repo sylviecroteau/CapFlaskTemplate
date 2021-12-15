@@ -4,10 +4,9 @@ group member do this.
 ### Part one: Python Packagess ###
 
 This assumes you have: 
-1) installed Anaconda properly 
-2) you have installed GitHub Properly 
-3) you have cloned the Capstone Flask Template (Which is what you are looking at now.)
-^ These instructions were provided seperately.
+1) You have installed GitHub. 
+2) You have cloned the Capstone Flask Template (Which is what you are looking at now.)
+3) Installed Anaconda - https://www.anaconda.com/products/individual
 
 Now you need to install all of python packages.  To do this, open the terminal in Visual Studio Code. If it is not
 already open then go to the Terminal menu and choose "New Terminal". If the terminal is set to "powershell" pull down the 
@@ -25,7 +24,8 @@ conda create --name capstone
 
 conda activate capstone
 
-# This command will install the tool you need to install Python Packages
+# This command will install the tool you need to install Python Packages. 
+# It may already be installed.
 
 conda install pip
 
@@ -36,77 +36,42 @@ pip install -r requirements.txt
 # if you are on a computer that you do not have administrative access you may need to do: pip install --user -r requirements.txt
 
 You should see several packages being downloaded and installed.
-You can check to see if it worked by clicking on the main.py to the left and then clicking the play button 
-at the top right of the screen.  You want to try and start the app after each stage of the install to see if 
-you did it right.
+You can check to see if it worked by clicking on the main.py to the left and then clicking the run button (triangle)
+at the top right of the screen.  You should get an error about "pymongo". We will address that in the next step.
 
-Starting the app video: 
-https://drive.google.com/file/d/1UOPdNptU8R50AzZIZGhk3Yg1gKIeuBBo/view
-
-### Part Two: Google API to enable Google Login ###
-### This will not work with your OUSD GMail account so you need to use a personal GMail account ###
-
-    Here is a video of the process:
-    https://drive.google.com/file/d/1IZUmFK2XhZnGAzk7dr7UaUiJZDLhanx0/view
-
-1) Go to https://console.cloud.google.com/home/dashboard
-2) Log in with your personal email credentials 
-3) At the top of the screen click the project pulldown menu and then click "New Project" in the top left of the next window
-   then click the three lines in the top left to get a menu
-4) Give the project a descriptive name like the name of your app and click Create
-5) Click the three lines in the top left of the screen, and click API's & Services and then click Credentials
-6) Click Create Credentials and then click OAuth Client ID
-7) You will probably be asked to fill out some fields for the "Consent Screen".  The only important part is that you click 
-    the option to allow people "outside of your organization" to access your app.  If you do not do that then only you will be 
-    able to login.  The reset of the options are not important for how your app works
-    but are important for communicating to your user what they are consenting to.  Fill it out.
-8) Then click Web Application, 
-9) Give this a descriptive name like the name of your app.
-10) You can leave javascript origins blank
-11) in authorized redirect URI's you need to put both:
-    https://localhost:5000/oauth2callback
-    https://127.0.0.1:5000/oauth2callback
-12) Click Create
-13) now go here to enable the People API:
-    https://console.cloud.google.com/apis/library/people.googleapis.com?q=people
-    Click enable
-13) You should now be on the Credentials page for you project here:
-    https://console.cloud.google.com/apis/credentials
-    Look for "OAuth 2.0 Client IDs" and you should see the name for the credentials you just created.  Click that.
-    It should say "Client ID for Web application" 
-    at the top and next to that it should say Download JSON.  Click download JSON.
-14) The JSON file you download you need to rename to --> "credentials.json" and put it in your files at the same 
-    level of your flask app as the "main.py" file.
-
-Once again, start the app to see if you did it right.  This time you should be able to login!
-You will eventually get an error.  Probably the error will be a "pymongo" error.
-
-### Step Three: hook up your database ###
-
-Here is a video:
-https://drive.google.com/file/d/1tDZzE4Yb2C8OK6MXn4n_8LgQyHFr9eCW/view
+### Step Two: hook up your database ###
 
 The next is mongodb.com where you will create your database and all the data from your site will be stored.
 Here is a link to video I made about the process for getting a mongodb.com account:
-1) I will describe the basic process to see how to get an account at mongodb.com and find the 
+1) I will describe the basic process to get an account at mongodb.com and find the 
     code you need to include in your app.
 2) Sign up for an account at mongodb.com.  Click the "sign up" and NOT the "Try it Free" link.  This way you can
     create a new account with your google credentials.
-3) You then going to get a free database "cluster".  Follow the instructions to do this.  Once you click the "Create Cluster"
-    button it will take a while for the cluster to be created. The new cluster will be greyed out until it is done.  When 
-    the new cluster is ready you will be able to click the connect button.
-4) click the connect button and then add 0.0.0.0 as teh whitelist IP.  This will make it possible to administer your 
+3) You then going to get a free database "cluster".  Follow the instructions to create a new FREE cluster. You will be asked 
+    which service you want to use (Google, AWS or Azure). Look at each to find a "Free Tier" that is close to us.
+4) Click the connect button and then add 0.0.0.0 as the whitelist IP. This will make it possible to administer your 
     database from anywhere.  Also add and new database admin and password.  This password will be viwable by a lot of people 
     in class so don't use one that you already use for other important things.  Something simple like Admin and BullDogz.
 5) Now you need to choose a connection method.  Click "Connect Your Application" and then configure the screen to give you the 
     code for Python 3.6 and above and click "Copy"
-6) At the end of the video you will have copied a string that looks like this:
+6) Copy the string that looks something like this:
     mongodb+srv://admin:<password>@cluster0-8m0v1.gcp.mongodb.net/test?retryWrites=true&w=majority   
     and now you need to paste it in to your app. 
-7) Go to the __init__.py file in the app folder (app/__init__.py) and replace the connect string that is there
-    and replace <dbuser> with the username you just created
-    and replace <dbpassword> with the password you just created
-8) take that string and place it in the __init__.py file in the app folder
+7) Go to the __init__.py file and find the connect string. Here's the tricky part. The connect string 
+    currently looks like this:
+    connect("capstone", host=f"mongodb+srv://{secrets['MONGO_ADMIN']}:{secrets['MONGO_PASSWORD']}@cluster0.8m0v1.mongodb.net/capstone?retryWrites=true&w=majority")
+    You will put your database username and password in the secrets file that is in the utils folder and the 
+    {secrets['MONGO_ADMIN]} and {secrets['MONGO_PASSWORD]} should stay exactly like it is and the rest of 
+    the line should be adjusted to match the string that you got from MongoDB. Finally, you need to put your
+    mongo database admin and password value in the secrets file that is in the utils flder.  You can see
+    an example of how the secrets file works in the readme.txt file that is in the utils folder.
+
+### Step Three: Set up an email account ###
+This step is somewhat optional.  You only need it if you want your users to be able to recover their 
+password via email if they forget. You should NOT use an email you currently use because you will need
+to write the password in a place that is not 100% secure.  So, go to gmail.com and create a new email account.
+Then add the address and the password the secrets file that is in the utils folder. Copy the text 
+from the readme.txt file in the utils folder.
 
 You should be ready to go!
 
