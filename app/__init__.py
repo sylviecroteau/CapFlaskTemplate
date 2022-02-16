@@ -8,16 +8,17 @@ from flask_moment import Moment
 import base64
 from flask_login import LoginManager
 from flask_mail import Mail
-from utils import secrets
-
-secrets = secrets.getSecrets()
 
 app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.do')
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY") or os.urandom(20)
 
+from app.utils.secrets import secrets
+
+secrets = secrets.getSecrets()
+
 #connect("capstone", host=f"{os.environ.get('mongodb_host')}/capstone?retryWrites=true&w=majority")
-connect("capstone", host=f"mongodb+srv://{secrets['MONGO_ADMIN']}:{secrets['MONGO_PASSWORD']}@cluster0.8m0v1.mongodb.net/capstone?retryWrites=true&w=majority")
+connect(secrets('MONGO_DB_NAME'), host=secrets('MONGO_DB_HOST'))
 moment = Moment(app)
 
 login = LoginManager(app)
