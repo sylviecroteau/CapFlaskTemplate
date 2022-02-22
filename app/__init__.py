@@ -17,7 +17,6 @@ from app.utils.secrets import getSecrets
 
 secrets = getSecrets()
 
-#connect("capstone", host=f"{os.environ.get('mongodb_host')}/capstone?retryWrites=true&w=majority")
 connect(secrets['MONGO_DB_NAME'], host=secrets['MONGO_HOST'])
 moment = Moment(app)
 
@@ -30,8 +29,6 @@ app.config.update(dict(
    MAIL_PORT = 587,
    MAIL_USE_TLS = 1,
    MAIL_USE_SSL = 0,
-   #MAIL_USERNAME = os.environ.get('MAIL_USERNAME'),
-   #MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD'),
    MAIL_USERNAME = secrets['MAIL_USERNAME'],
    MAIL_PASSWORD = secrets['MAIL_PASSWORD']
 ))

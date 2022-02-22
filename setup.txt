@@ -4,8 +4,9 @@ group member do this.
 ### Part one: Python Packagess ###
 
 This assumes you have: 
-1) You have installed GitHub. 
-2) You have cloned the Capstone Flask Template (Which is what you are looking at now.)
+1) installed Git (https://github.com/git-guides/install-git)
+    Git NOT github desktop
+2) cloned the Capstone Flask Template (Which is what you are looking at now.)
 3) Installed Anaconda - https://www.anaconda.com/products/individual
 
 Now you need to install all of python packages.  To do this, open the terminal in Visual Studio Code. If it is not
@@ -64,8 +65,7 @@ The next is mongodb.com where you will create your database and all the data fro
 This step is optional.  You only need it if you want your users to be able to recover their 
 password via email if they forget. You should NOT use an email you currently use because you will need
 to write the password in a place that is not 100% secure.  So, go to gmail.com and create a new email account.
-Then add the address and the password the secrets file that is in the utils folder. Copy the text 
-from the readme.txt file in the utils folder.
+Then add the address and the password the secrets file that is in the utils folder. 
 
 You should be ready to go!
 
