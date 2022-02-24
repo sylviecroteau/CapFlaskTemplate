@@ -1,18 +1,19 @@
 You need to get set up with two services in order to use this template.  If you are in a group, you can have one 
 group member do this.
 
-(A NOTE for MAC USERS: First, why? Just why. Mac installs python 2 and Python 3.
-We are using python 3. I believe that python 3 that Mac installs will work but I have not
-completed and install yet. To check, go to the Mac Terminal and type 'python3'. It should
+(A NOTE for MAC USERS: First, why? Just why. Next, Mac installs python 2 and Python 3.
+We are using python 3 so whenever you run python you have to use the command python3. 
+To checkthat this will work, go to the Mac Terminal - find it in Spotlight- and type 'python3'. It should
 report out that python 3.9 is installed.)
 
-### Part one: Python Packagess ###
+### Before we begin ###
 
 This assumes you have: 
-1) installed Git (https://github.com/git-guides/install-git)
-    Git NOT github desktop
-2) cloned the Capstone Flask Template (Which is what you are looking at now.)
-3) Installed Anaconda - https://www.anaconda.com/products/individual
+1) Installed Visual Studio Code. (Which is what you are using to look at this file now)
+2) installed Git (https://github.com/git-guides/install-git)
+    Git NOT github desktop.
+3) Cloned the Capstone Flask Template (Which is what you are looking at now.)
+4) Installed Anaconda - https://www.anaconda.com/products/individual
     (Mac users will not use Anaconda)
 
 ###### Install the Python Extension in VSC ########
