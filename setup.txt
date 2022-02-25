@@ -1,9 +1,10 @@
 You need to get set up with two services in order to use this template.  If you are in a group, you can have one 
 group member do this.
 
-(A NOTE for MAC USERS: First, why? Just why. Next, Mac installs python 2 and Python 3.
-We are using python 3 so whenever you run python you have to use the command python3. 
-To checkthat this will work, go to the Mac Terminal - find it in Spotlight- and type 'python3'. It should
+(A NOTE for MAC USERS: First, why? Just why. Next, Mac installs python 2 by default and Python 3 in Xcode. You
+hopefully already installed Xcode earlier because you needed it to get 'git'. This projecty uses python3
+so whenever you run python you have to use the command python3. 
+To check that this will work, go to the Mac Terminal - find it in Spotlight- and type 'python3'. It should
 report out that python 3.9 is installed.)
 
 ### Before we begin ###
@@ -17,6 +18,8 @@ This assumes you have:
     (Mac users will not use Anaconda)
 
 ###### Install the Python Extension in VSC ########
+
+#### THIS PART CAN GET MESSY.  BE PATIENT! ####
 
 1) Click the extensions icon on the left side of the screen. It looks like 4
     squares.
@@ -37,19 +40,16 @@ window pane. Then open a new terminal by going to the Terminal menu at the top o
 
 ##### Install the Python Packages #####
 
-# Now you need to install all of the python packages.  To do this, open the terminal in Visual Studio Code. If it is not
-# already open then go to the Terminal menu and choose "New Terminal". 
+# Now you need to install all of the python packages.  To do this, open the terminal in Visual Studio Code. 
+# If it is not already open then go to the Terminal menu and choose "New Terminal". 'pip' is the 
+# name of the tool that installs python packages. This next command will just check to see if you
+# have pip installed. It should report back to you how to use pip.
 
-# This next command will install the tool you need to install Python Packages. This might
-# give an error saying it is already installed.  Thats fine. 
+python -m pip
+(schMac users: python3 -m pip)
 
-conda install pip
-(mac users, ooooh Mac users, just type 'pip' to check if it is there.)
-
-# If for some reason pip is not there and the install isn't working try the solution here:
-https://www.geeksforgeeks.org/how-to-install-pip-on-windows/
-(for muck users, oops I meant Mac...)
-https://www.geeksforgeeks.org/how-to-install-pip-in-macos/
+# If for some reason pip is not there first try a restart of your computer and then 
+# run the above command again. If it still isn't working ask Mr. Wright to help to install pip.  
 
 # If it is already installed lets make sure it is updated.
 
