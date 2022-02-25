@@ -17,18 +17,9 @@ This assumes you have:
 4) Installed Anaconda - https://www.anaconda.com/products/individual
     (Mac users will not use Anaconda)
 
-###### Install the Python Extension in VSC ########
+#### Set VSC Default Terminal to cmd.exe (windows only) #####
 
-#### THIS PART CAN GET MESSY.  BE PATIENT! ####
-
-1) Click the extensions icon on the left side of the screen. It looks like 4
-    squares.
-2) Search for and install the Python extension. It is the one created by Microsoft.
- You can also install it from this link: https://marketplace.visualstudio.com/items?itemName=ms-python.python
-
-#### Set VSC Default Terminal to cmd.exe #####
-
-open the terminal in Visual Studio Code. If it is not
+Open a new terminal in Visual Studio Code. If it is not
 already open then go to the Terminal menu and choose "New Terminal". Check in the bottom right corner to see 
 if the terminal is set to "powershell". If it is, pull down the 
 terminal menu which is a little down pointing arrow next to the '+' at the top right of the 
@@ -36,9 +27,17 @@ terminal window in VSC. Choose "select default profile" then pick "Command Promp
 Then click the trash can next to any open termnal listed at the far right in the terminal 
 window pane. Then open a new terminal by going to the Terminal menu at the top of the screen.
 
-(Mac users, are you still here?, your default profile should be 'zsh'.)
+(Mac users, your default profile should be 'zsh'.)
+
+#### Install the Python Extension in VSC  ####
+
+1) Click the extensions icon on the left side of the screen. It looks like 4
+    squares.
+2) Search for and install the Python extension. It is the one created by Microsoft.
+ You can also install it from this link: https://marketplace.visualstudio.com/items?itemName=ms-python.python
 
 ##### Install the Python Packages #####
+##### Deep breath, this can get messy  #####
 
 # Now you need to install all of the python packages.  To do this, open the terminal in Visual Studio Code. 
 # If it is not already open then go to the Terminal menu and choose "New Terminal". 'pip' is the 
@@ -47,6 +46,10 @@ window pane. Then open a new terminal by going to the Terminal menu at the top o
 
 python -m pip
 (schMac users: python3 -m pip)
+
+# On the Internet you may see instructions to use just 'pip' and not 'python -m pip'. Don't do that.
+# 'python -m pip' ('python3 -m pip' for Mac users) is better becuase it makes sure that you are 
+# using the right version of pip.
 
 # If for some reason pip is not there first try a restart of your computer and then 
 # run the above command again. If it still isn't working ask Mr. Wright to help to install pip.  
