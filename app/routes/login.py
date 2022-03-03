@@ -13,7 +13,12 @@ from .mail import send_email
 # This function is called by other functions to load the current user in to memory
 @login.user_loader
 def load_user(id):
-    return User.objects.get(pk=id)
+    print('loading user')
+    try:
+        return User.objects.get(pk=id)
+    except:
+        flash("Something strange has happened. This user doesn't exist. Please click logout.")
+        return redirect(url_for('index'))
 
 # This is the route that a user uses to login
 @app.route('/login', methods=['GET', 'POST'])
@@ -24,7 +29,11 @@ def login():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.objects.get(username=form.username.data)
+        try:
+            user = User.objects.get(username=form.username.data)
+        except:
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
@@ -50,12 +59,11 @@ def register():
     if form.validate_on_submit():
         newUser = User(
             username=form.username.data, 
-            fname=form.fname.data,
-            lname=form.lname.data,
             email=form.email.data
             )
         newUser.save()
         newUser.set_password(form.password.data)
+        newUser.save()
 
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
