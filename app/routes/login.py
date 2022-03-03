@@ -59,6 +59,8 @@ def register():
     if form.validate_on_submit():
         newUser = User(
             username=form.username.data, 
+            fname=form.fname.data,
+            lname=form.lname.data,
             email=form.email.data
             )
         newUser.save()
