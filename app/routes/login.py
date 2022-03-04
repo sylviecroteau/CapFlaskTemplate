@@ -7,6 +7,7 @@ from flask import render_template, redirect, flash, url_for, request
 from app.classes.data import User
 from app.classes.forms import LoginForm, RegistrationForm, ResetPasswordForm
 from flask_login import current_user, login_user, logout_user
+import mongoengine.errors
 from app.classes.forms import ResetPasswordRequestForm
 from .mail import send_email
 
@@ -16,7 +17,7 @@ def load_user(id):
     print('loading user')
     try:
         return User.objects.get(pk=id)
-    except:
+    except mongoengine.errors.DoesNotExist:
         flash("Something strange has happened. This user doesn't exist. Please click logout.")
         return redirect(url_for('index'))
 
@@ -31,12 +32,13 @@ def login():
     if form.validate_on_submit():
         try:
             user = User.objects.get(username=form.username.data)
-        except:
+        except mongoengine.errors.DoesNotExist:
             flash('Invalid username or password')
             return redirect(url_for('login'))
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('login'))
+        else:
+            if user is None or not user.check_password(form.password.data):
+                flash('Invalid username or password')
+                return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
@@ -93,7 +95,7 @@ def reset_password(token):
         return redirect(url_for('index'))
     try:
         user = User.verify_reset_password_token(token)
-    except:
+    except mongoengine.errors.DoesNotExist:
         flash("I was unable to reset your password.")
         return redirect(url_for('index'))
     else:
@@ -116,12 +118,14 @@ def reset_password_request():
     if form.validate_on_submit():
         try:
             user = User.objects.get(email=form.email.data)
-        except:
+        except mongoengine.errors.DoesNotExist:
             flash(f"I was unable to find a user with email {form.email.data}.")
             return redirect(url_for('index'))
         else:
             if user:
                 send_password_reset_email(user)
-        flash('Check your email for the instructions to reset your password')
+                flash('Check your email for the instructions to reset your password')
+            else:
+                flash("Sorry, I was unable to find the user to send the reset email. Please try again.")
         return redirect(url_for('login'))
     return render_template('reset_password_request.html',title='Reset Password', form=form)
