@@ -91,9 +91,15 @@ def send_password_reset_email(user):
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    user = User.verify_reset_password_token(token)
-    if not user:
+    try:
+        user = User.verify_reset_password_token(token)
+    except:
+        flash("I was unable to reset your password.")
         return redirect(url_for('index'))
+    else:
+        if not user:
+            flash("I was unable to reset your password.")
+            return redirect(url_for('index'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user.set_password(form.password.data)
@@ -108,9 +114,14 @@ def reset_password_request():
         return redirect(url_for('index'))
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
-        user = User.objects.get(email=form.email.data)
-        if user:
-            send_password_reset_email(user)
+        try:
+            user = User.objects.get(email=form.email.data)
+        except:
+            flash(f"I was unable to find a user with email {form.email.data}.")
+            return redirect(url_for('index'))
+        else:
+            if user:
+                send_password_reset_email(user)
         flash('Check your email for the instructions to reset your password')
         return redirect(url_for('login'))
     return render_template('reset_password_request.html',title='Reset Password', form=form)
