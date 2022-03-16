@@ -9,3 +9,8 @@ def index():
 @app.route('/whyaccess')
 def whyaccess():
     return render_template('whyaccess.html')
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
