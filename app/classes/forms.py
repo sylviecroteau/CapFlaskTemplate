@@ -58,8 +58,14 @@ class ProfileForm(FlaskForm):
     lname = StringField('Last Name', validators=[DataRequired()]) 
     image = FileField("Image") 
     submit = SubmitField('Post')
+<<<<<<< HEAD
     role = SelectField('Role',choices=[("Patient","Patient"),("Clinician","Clinician")])
     age = SelectField('Age',choices=[("17 or younger","17 or younger"),("18 or older","18 or older")])
+=======
+    role = SelectField('Role', choices = [("Clinician", "Clinician"), ("Patient", "Patient")])
+    age = SelectField('Age', choices = [("17 or younger", "17 or younger"), ("18 or older", "18 or older")]) 
+
+>>>>>>> d5c83b037b30f2430ebb53173c35e4e610d0a372
 class PostForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Post', validators=[DataRequired()])
