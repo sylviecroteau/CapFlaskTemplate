@@ -1,5 +1,5 @@
 # This file is where data entry forms are created. Forms are placed on templates 
-# and users fill them out.  Each form is an instance of a class. Forms are managed by the 
+# and users fill them out.  Each form is an instance of of a class. Forms are managed by the 
 # Flask-WTForms library.
 
 from flask.app import Flask
@@ -7,8 +7,9 @@ from flask import flash
 from flask_wtf import FlaskForm
 from mongoengine.fields import EmailField
 import mongoengine.errors
+#from wtforms.fields.html5 import URLField, DateField, DateTimeField, EmailField
 from wtforms.validators import URL, NumberRange, Email, Optional, InputRequired, ValidationError, DataRequired, EqualTo
-from wtforms import PasswordField, StringField, SubmitField, TextAreaField, HiddenField, IntegerField, SelectField, FileField, BooleanField
+from wtforms import PasswordField, StringField, SubmitField, validators, TextAreaField, HiddenField, IntegerField, SelectField, FileField, BooleanField
 from app.classes.data import User
 
 class LoginForm(FlaskForm):
@@ -57,14 +58,8 @@ class ProfileForm(FlaskForm):
     lname = StringField('Last Name', validators=[DataRequired()]) 
     image = FileField("Image") 
     submit = SubmitField('Post')
-<<<<<<< HEAD
     role = SelectField('Role',choices=[("Patient","Patient"),("Clinician","Clinician")])
     age = SelectField('Age',choices=[("17 or younger","17 or younger"),("18 or older","18 or older")])
-=======
-    role = SelectField('Role', choices = [("Clinician", "Clinician"), ("Patient", "Patient")])
-    age = SelectField('Age', choices = [("17 or younger", "17 or younger"), ("18 or older", "18 or older")]) 
-
->>>>>>> d5c83b037b30f2430ebb53173c35e4e610d0a372
 class PostForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Post', validators=[DataRequired()])
