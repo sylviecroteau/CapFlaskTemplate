@@ -5,9 +5,12 @@ from flask import render_template
 @app.route('/')
 def index():
     return render_template('index.html')
+
 @app.route('/whyaccess')
 def whyaccess():
     return render_template('whyaccess.html')
+
 @app.route('/aboutus')
 def aboutus():
     return render_template('aboutus.html')
+
