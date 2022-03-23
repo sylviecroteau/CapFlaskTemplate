@@ -60,10 +60,20 @@ class ProfileForm(FlaskForm):
     submit = SubmitField('Post')
     role = SelectField('Role',choices=[("Patient","Patient"),("Clinician","Clinician")])
     age = SelectField('Age',choices=[("17 or younger","17 or younger"),("18 or older","18 or older")])
+
 class PostForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Post', validators=[DataRequired()])
     submit = SubmitField('Post')
+
+class ClinicForm(FlaskForm):
+    # houropen = DateTimeField() DO LATER 
+    # hourclose = DateTimeField()
+    name = StringField('Name', validators=[DataRequired()])
+    services = StringField('Services', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Clinic')
 
 class CommentForm(FlaskForm):
     content = TextAreaField('Comment', validators=[DataRequired()])

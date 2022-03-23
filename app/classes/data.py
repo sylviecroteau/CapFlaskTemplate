@@ -60,7 +60,13 @@ class Clinic(Document):
     author = ReferenceField('User',reverse_delete_rule=CASCADE) 
     createdate = DateTimeField(default=dt.datetime.utcnow)
     modifydate = DateTimeField()
-
+    houropen = DateTimeField()
+    hourclose = DateTimeField()
+    name = StringField()
+    services = StringField()
+    address = StringField()
+    description = StringField()
+    
     meta = {
         'ordering': ['-createdate']
     }
