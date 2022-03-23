@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 
+<!--FOR SYLVIE AND JULIA: i think that the code on this page should actually be in clinics.html so 
+    I copied and pasted it there as well but i think this page needs something closer 
+    to what is on post.html instead. I would assume clinic aligns with post and clinics aligns
+    with posts. i could be very wrong but that is a hunch. sincerely, maggie -->
+
 {% block body %}
 
 <div class="row">
     <div class="col-4">
-        <h1 class="display-1">All Posts</h1>
+        <h1 class="display-1">All Clinics</h1>
     </div>
     <div class="col">
-        <a href="/post/new" class="btn btn-primary btn-sm mt-5" role="button">New Post</a>
+        <a href="/post/new" class="btn btn-primary btn-sm mt-5" role="button">New Clinic</a>
     </div>
 </div>
 
-{% if posts %}
-    {% for post in posts %}
+{% if clinics %}
+    {% for clinic in clinics %}
         <div class="row border-bottom">
             <div class="col-2">
                 {% if loop.index == 1 %}
@@ -20,25 +25,49 @@
                 {% endif %}
 
                 <a href="/post/{{post.id}}">
-                    {{moment(post.createdate).calendar()}}
+                    {{moment(clinic.createdate).calendar()}}
                 </a>
             </div>
             <div class="col-2">
                 {% if loop.index == 1 %}
                 <h3 class="display-5">User</h3>
                 {% endif %}
-                {{post.author.username}}
+                {{clinic.author.username}}
             </div>
             <div class="col">
                 {% if loop.index == 1 %}
                     <h3 class="display-5">Subject</h3>
                 {% endif %}
-                {{post.subject}}
+                {{clinic.subject}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Name</h3>
+                {% endif %}
+                {{clinic.name}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Services</h3>
+                {% endif %}
+                {{clinic.services}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Address</h3>
+                {% endif %}
+                {{clinic.address}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3 class="display-5">Description</h3>
+                {% endif %}
+                {{clinic.description}}
             </div>
         </div>
     {% endfor %}
 {% else %}
-    <h1>No Posts</h1>
+    <h1>No Clinics</h1>
 {% endif %}
 
 {% endblock %}

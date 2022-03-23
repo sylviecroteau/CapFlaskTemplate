@@ -18,7 +18,9 @@ from app.utils.secrets import getSecrets
 
 secrets = getSecrets()
 
-connect(secrets['MONGO_DB_NAME'], host=secrets['MONGO_HOST'], tlsCAFile=certifi.where())
+#connect(secrets['MONGO_DB_NAME'], host=secrets['MONGO_HOST'], tlsCAFile=certifi.where())
+connect(secrets['MONGO_DB_NAME'], host=secrets['MONGO_HOST'])
+
 moment = Moment(app)
 
 login = LoginManager(app)
