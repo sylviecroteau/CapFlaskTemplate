@@ -1,73 +1,56 @@
+<!-- this is going to look WACKY i am in the midst of working on it. Sorry :( - Sylvie  -->
+
 {% extends 'base.html' %}
 
-<!--FOR SYLVIE AND JULIA: i think that the code on this page should actually be in clinics.html so 
-    I copied and pasted it there as well but i think this page needs something closer 
-    to what is on post.html instead. I would assume clinic aligns with post and clinics aligns
-    with posts. i could be very wrong but that is a hunch. sincerely, maggie -->
-
-{% block body %}
-
-<div class="row">
-    <div class="col-4">
-        <h1 class="display-1">All Clinics</h1>
-    </div>
-    <div class="col">
-        <a href="/post/new" class="btn btn-primary btn-sm mt-5" role="button">New Clinic</a>
-    </div>
-</div>
-
-{% if clinics %}
-    {% for clinic in clinics %}
-        <div class="row border-bottom">
-            <div class="col-2">
-                {% if loop.index == 1 %}
-                <h3 class="display-5">Date</h3>
-                {% endif %}
-
-                <a href="/post/{{post.id}}">
-                    {{moment(clinic.createdate).calendar()}}
-                </a>
-            </div>
-            <div class="col-2">
-                {% if loop.index == 1 %}
-                <h3 class="display-5">User</h3>
-                {% endif %}
-                {{clinic.author.username}}
-            </div>
-            <div class="col">
-                {% if loop.index == 1 %}
-                    <h3 class="display-5">Subject</h3>
-                {% endif %}
-                {{clinic.subject}}
-            </div>
-            <div class="col">
-                {% if loop.index == 1 %}
-                    <h3 class="display-5">Name</h3>
-                {% endif %}
-                {{clinic.name}}
-            </div>
-            <div class="col">
-                {% if loop.index == 1 %}
-                    <h3 class="display-5">Services</h3>
-                {% endif %}
-                {{clinic.services}}
-            </div>
-            <div class="col">
-                {% if loop.index == 1 %}
-                    <h3 class="display-5">Address</h3>
-                {% endif %}
-                {{clinic.address}}
-            </div>
-            <div class="col">
-                {% if loop.index == 1 %}
-                    <h3 class="display-5">Description</h3>
-                {% endif %}
-                {{clinic.description}}
-            </div>
-        </div>
-    {% endfor %}
-{% else %}
-    <h1>No Clinics</h1>
-{% endif %}
-
-{% endblock %}
+    {% block body %}
+    
+    {% if clinic %}
+    
+    {{moment(clinic.createdate).calendar()}} by {{clinic.author.username}} 
+    {% if clinic.modifydate %}
+        modified {{moment(clinic.modifydate).calendar()}}
+    {% endif %}
+    <br>
+        {% if clinic.author == current_user %}
+            <a data-toggle="tooltip" data-placement="top" title="Delete Clinic" href="/clinic/delete/{{clinic.id}}">
+                <img width="40" class="bottom-image" src="/static/delete.png">
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Edit Clinic" href="/clinic/edit/{{clinic.id}}">
+                <img width="40" class="bottom-image" src="/static/edit.png">
+            </a>
+        {% endif %}
+    
+        <h1 class="display-5">Name:  {{clinic.name}}</h1>
+        <p class="fs-3 text-break">
+            {% if clinic.author.image %}
+                <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(clinic.author.image.read())}}">
+            {% endif %}
+                {{clinic.content}}
+        </p>
+        <h1 class="display-5">Services:  {{clinic.services}}</h1>
+        <p class="fs-3 text-break">
+            {% if clinic.author.image %}
+                <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(clinic.author.image.read())}}">
+            {% endif %}
+                {{clinic.content}}
+        </p>
+        <h1 class="display-5">Address:  {{clinic.address}}</h1>
+        <p class="fs-3 text-break">
+            {% if clinic.author.image %}
+                <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(clinic.author.image.read())}}">
+            {% endif %}
+                {{clinic.content}}
+        </p>
+        <h1 class="display-5">Description: {{clinic.description}}</h1>
+        <p class="fs-3 text-break">
+            {% if clinic.author.image %}
+                <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(clinic.author.image.read())}}">
+            {% endif %}
+                {{clinic.content}}
+        </p>
+        
+    {% else %}
+        <h1 class="display-5">No Clinic</h1>
+    {% endif %}
+    
+    {% endblock %}
