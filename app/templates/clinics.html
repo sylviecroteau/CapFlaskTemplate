@@ -7,7 +7,7 @@
         <h1 class="display-1">All Clinics</h1>
     </div>
     <div class="col">
-        <a href="/post/new" class="btn btn-primary btn-sm mt-5" role="button">New Clinic</a>
+        <a href="/clinic/new" class="btn btn-primary btn-sm mt-5" role="button">New Clinic</a>
     </div>
 </div>
 
@@ -19,21 +19,9 @@
                 <h3 class="display-5">Date</h3>
                 {% endif %}
 
-                <a href="/post/{{post.id}}">
+                <a href="/clinic/{{clinic.id}}">
                     {{moment(clinic.createdate).calendar()}}
                 </a>
-            </div>
-            <div class="col-2">
-                {% if loop.index == 1 %}
-                <h3 class="display-5">User</h3>
-                {% endif %}
-                {{clinic.author.username}}
-            </div>
-            <div class="col">
-                {% if loop.index == 1 %}
-                    <h3 class="display-5">Subject</h3>
-                {% endif %}
-                {{clinic.subject}}
             </div>
             <div class="col">
                 {% if loop.index == 1 %}

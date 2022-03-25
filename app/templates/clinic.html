@@ -22,9 +22,6 @@
     
         <h1 class="display-5">Name:  {{clinic.name}}</h1>
         <p class="fs-3 text-break">
-            {% if clinic.author.image %}
-                <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(clinic.author.image.read())}}">
-            {% endif %}
                 {{clinic.content}}
         </p>
         <h1 class="display-5">Services:  {{clinic.services}}</h1>
@@ -35,17 +32,11 @@
                 {{clinic.content}}
         </p>
         <h1 class="display-5">Address:  {{clinic.address}}</h1>
-        <p class="fs-3 text-break">
-            {% if clinic.author.image %}
-                <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(clinic.author.image.read())}}">
-            {% endif %}
+        <p class="fs-3 text-break"> 
                 {{clinic.content}}
         </p>
         <h1 class="display-5">Description: {{clinic.description}}</h1>
         <p class="fs-3 text-break">
-            {% if clinic.author.image %}
-                <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(clinic.author.image.read())}}">
-            {% endif %}
                 {{clinic.content}}
         </p>
         
@@ -54,3 +45,11 @@
     {% endif %}
     
     {% endblock %}
+
+
+   <!--{% if clinic.author.image %}
+                <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(clinic.author.image.read())}}">
+            {% endif %} 
+            
+            this is the code for the images, i took it out of 
+            the code but even when the code was still there i didn't see the pictures for some reason---> 
