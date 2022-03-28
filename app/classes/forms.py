@@ -73,7 +73,7 @@ class ClinicForm(FlaskForm):
     services = StringField('Services', validators=[DataRequired()])
     address = StringField('Address', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
-    submit = SubmitField('Clinic')
+    submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
     content = TextAreaField('Comment', validators=[DataRequired()])

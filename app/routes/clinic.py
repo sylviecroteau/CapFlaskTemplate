@@ -86,7 +86,6 @@ def clinicNew():
     # This is a conditional that evaluates to 'True' if the user submitted the form successfully.
     # validate_on_submit() is a method of the form object. 
     if form.validate_on_submit():
-        flash("Form was valid")
         # This stores all the values that the user entered into the new post form. 
         # Post() is a mongoengine method for creating a new post. 'newPost' is the variable 
         # that stores the object that is the result of the Post() method.  
@@ -110,7 +109,6 @@ def clinicNew():
         # for that route (the part after the def key word). You also need to send any
         # other values that are needed by the route you are redirecting to.
         return redirect(url_for('clinic',clinicID=newClinic.id))
-    flash("form not submittrf")
     # if form.validate_on_submit() is false then the user either has not yet filled out
     # the form or the form had an error and the user is sent to a blank form. Form errors are 
     # stored in the form object and are displayed on the form. take a look at postform.html to 
