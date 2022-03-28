@@ -151,3 +151,9 @@ def clinicEdit(clinicID):
     # Send the user to the post form that is now filled out with the current information
     # from the form.
     return render_template('clinicform.html',form=form)
+
+
+@app.route('/cliniclocator')
+def cliniclocator():
+    markers=[{'lat':0,'lon':0,'popup':'This is the middle of the map.'}]
+    return render_template('cliniclocator.html', markers=markers)
