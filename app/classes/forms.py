@@ -9,7 +9,7 @@ from mongoengine.fields import EmailField
 import mongoengine.errors
 #from wtforms.fields.html5 import URLField, DateField, DateTimeField, EmailField
 from wtforms.validators import URL, NumberRange, Email, Optional, InputRequired, ValidationError, DataRequired, EqualTo
-from wtforms import PasswordField, StringField, SubmitField, validators, TextAreaField, HiddenField, IntegerField, SelectField, FileField, BooleanField
+from wtforms import PasswordField, StringField, SubmitField, validators, TextAreaField, HiddenField, IntegerField, SelectField, FileField, BooleanField, FloatField
 from app.classes.data import User
 
 class LoginForm(FlaskForm):
@@ -74,8 +74,8 @@ class ClinicForm(FlaskForm):
     address = StringField('Address', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
-    lat = IntegerField('Latitude')
-    lon = IntegerField('Longitude')
+    lat = FloatField('Latitude')
+    lon = FloatField('Longitude')
 
 class CommentForm(FlaskForm):
     content = TextAreaField('Comment', validators=[DataRequired()])

@@ -26,7 +26,15 @@ yo is this thing on
     map.addLayer(layer);
 
     // It even opens up a popup when you click it!
+    
+    console.log('{{clinics[0].name}}')
+
+    {% for clinic in clinics %}
+      L.marker(['{{clinic.lat}}', '{{clinic.lon}}']).addTo(map).bindPopup("<strong>'{{clinic.name}}'</strong>").openPopup();
+    {% endfor %}
+
     L.marker([40.712, -74.006]).addTo(map).bindPopup("<strong>Hypothetical Clinic</strong>").openPopup();
+
 </script>
 
 

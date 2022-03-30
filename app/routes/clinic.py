@@ -19,6 +19,7 @@ def clinicMap():
     # This retrieves all of the 'posts' that are stored in MongoDB and places them in a
     # mongoengine object as a list of dictionaries name 'posts'.
     clinics = Clinic.objects()
+
     # This renders (shows to the user) the posts.html template. it also sends the posts object 
     # to the template as a variable named posts.  The template uses a for loop to display
     # each post.
@@ -60,26 +61,28 @@ def clinic(clinicID):
 # <postID> is a variable sent to this route by the user who clicked on the trash can in the 
 # template 'post.html'. 
 # TODO add the ability for an administrator to delete posts. Add this back later 
-# @app.route('/clinic/delete/<clinicID>')
-# # Only run this route if the user is logged in.
-# @login_required
-# def clinicDelete(clinicID):
-#     # retrieve the post to be deleted using the postID
-#     deleteClinic = Post.objects.get(id=clinicID)
-#     # check to see if the user that is making this request is the author of the post.
-#     # current_user is a variable provided by the 'flask_login' library.
-#     if current_user == deletePost.author:
-#         # delete the post using the delete() method from Mongoengine
-#         deletePost.delete()
-#         # send a message to the user that the post was deleted.
-#         flash('The Post was deleted.')
-#     else:
-#         # if the user is not the author tell them they were denied.
-#         flash("You can't delete a post you don't own.")
-#     # Retrieve all of the remaining posts so that they can be listed.
-#     posts = Post.objects()  
-#     # Send the user to the list of remaining posts.
-#     return render_template('posts.html',posts=posts)
+@app.route('/clinic/delete/<clinicID>')
+# Only run this route if the user is logged in.
+@login_required
+def clinicDelete(clinicID):
+    # retrieve the post to be deleted using the postID
+    deleteClinic = Clinic.objects.get(id=clinicID)
+    # check to see if the user that is making this request is the author of the post.
+    # current_user is a variable provided by the 'flask_login' library.
+    # if current_user == deleteClinic.author:
+    #     # delete the post using the delete() method from Mongoengine
+    #     deleteClinic.delete()
+    #     # send a message to the user that the post was deleted.
+    #     flash('The Clinic was deleted.')
+    # else:
+    #     # if the user is not the author tell them they were denied.
+    #     flash("You can't delete a clinic you don't own.")
+  
+    # Send the user to the list of remaining posts.
+    deleteClinic.delete()
+    # send a message to the user that the post was deleted.
+    flash('The Clinic was deleted.')
+    return redirect(url_for('clinicList'))
 
 # This route actually does two things depending on the state of the if statement 
 # 'if form.validate_on_submit()'. When the route is first called, the form has not 
