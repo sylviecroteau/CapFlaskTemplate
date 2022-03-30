@@ -12,6 +12,19 @@ from flask_login import login_required
 import datetime as dt
 
 # This is the route to list all posts
+@app.route('/clinic/map')
+# This means the user must be logged in to see this page
+@login_required
+def clinicMap():
+    # This retrieves all of the 'posts' that are stored in MongoDB and places them in a
+    # mongoengine object as a list of dictionaries name 'posts'.
+    clinics = Clinic.objects()
+    # This renders (shows to the user) the posts.html template. it also sends the posts object 
+    # to the template as a variable named posts.  The template uses a for loop to display
+    # each post.
+    return render_template('cliniclocator.html',clinics=clinics)
+
+# This is the route to list all posts
 @app.route('/clinic/list')
 # This means the user must be logged in to see this page
 @login_required
@@ -97,7 +110,9 @@ def clinicNew():
             address = form.address.data,
             description = form.description.data,
             author = current_user.id,
-            modifydate = dt.datetime.utcnow
+            modifydate = dt.datetime.utcnow,
+            lat = form.lat.data,
+            lon = form.lon.data
         )
         # This is a method that saves the data to the mongoDB database.
         newClinic.save()
@@ -138,7 +153,9 @@ def clinicEdit(clinicID):
         editClinic.update(
             subject = form.subject.data,
             content = form.content.data,
-            modifydate = dt.datetime.utcnow
+            modifydate = dt.datetime.utcnow,
+            lat = form.lat.data,
+            lon = form.lon.data
         )
         # After updating the document, send the user to the updated post using a redirect.
         return redirect(url_for('clinic',clinicID=clinicID))
@@ -151,9 +168,3 @@ def clinicEdit(clinicID):
     # Send the user to the post form that is now filled out with the current information
     # from the form.
     return render_template('clinicform.html',form=form)
-
-
-@app.route('/cliniclocator')
-def cliniclocator():
-    markers=[{'lat':0,'lon':0,'popup':'This is the middle of the map.'}]
-    return render_template('cliniclocator.html', markers=markers)

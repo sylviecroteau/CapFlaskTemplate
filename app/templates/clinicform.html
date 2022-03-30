@@ -42,6 +42,20 @@
             {% endfor %}
         </p>
         <p>
+            {{ form.lat.label }}<br>
+            {{ form.lat(size=64) }}<br>
+            {% for error in form.lat.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.lon.label }}<br>
+            {{ form.lon(size=64) }}<br>
+            {% for error in form.lon.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
             {{ form.submit() }}<br>
 
         </p>

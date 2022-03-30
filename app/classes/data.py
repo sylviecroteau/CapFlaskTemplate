@@ -7,7 +7,7 @@
 from app import app
 from flask import flash
 from flask_login import UserMixin
-from mongoengine import FileField, EmailField, StringField, ReferenceField, DateTimeField, CASCADE
+from mongoengine import FileField, EmailField, StringField, ReferenceField, DateTimeField, CASCADE, IntField
 from flask_mongoengine import Document
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime as dt
@@ -66,6 +66,8 @@ class Clinic(Document):
     services = StringField()
     address = StringField()
     description = StringField()
+    lat = IntField()
+    lon = IntField()
     
     meta = {
         'ordering': ['-createdate']

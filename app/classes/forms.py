@@ -74,6 +74,8 @@ class ClinicForm(FlaskForm):
     address = StringField('Address', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
+    lat = IntegerField('Latitude')
+    lon = IntegerField('Longitude')
 
 class CommentForm(FlaskForm):
     content = TextAreaField('Comment', validators=[DataRequired()])
