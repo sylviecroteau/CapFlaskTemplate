@@ -4,15 +4,15 @@
 
 {% block body %}
 
-yo is this thing on 
-
-<div id="map" style="height: 250px;"></div>
+<div id="map" style="height: 750px;"></div>
+<br>
+<br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0-beta.1/leaflet.js"></script>
 
 <script type="text/javascript">
     // The first parameter are the coordinates of the center of the map
     // The second parameter is the zoom level
-    var map = L.map('map').setView([40.712, -74.006], 11);
+    var map = L.map('map').setView([37.807513,-122.2697032], 11);
     
     // {s}, {z}, {x} and {y} are placeholders for map tiles
     // {x} and {y} are the x/y of where you are on the map
@@ -26,7 +26,7 @@ yo is this thing on
     map.addLayer(layer);
 
     // It even opens up a popup when you click it!
-    L.marker([40.712, -74.006]).addTo(map).bindPopup("<strong>Hypothetical Clinic</strong>").openPopup();
+    L.marker([37.807513,-122.2697032]).addTo(map).bindPopup("<strong>Hypothetical Clinic</strong>").openPopup();
 </script>
 
 
