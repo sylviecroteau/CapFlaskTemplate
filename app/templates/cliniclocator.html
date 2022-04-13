@@ -29,12 +29,13 @@
     
     console.log('{{clinics[0].name}}')
 
-    // {% for clinic in clinics %}
-    //   L.marker(['{{clinic.lat}}', '{{clinic.lon}}']).addTo(map).bindPopup("<strong>'{{clinic.name}}'</strong>").openPopup();
-    // {% endfor %}
+    {% for clinic in clinics %}
 
-    // L.marker([37.807513,-122.2697032]).addTo(map).bindPopup("<strong>Hypothetical Clinic</strong>").openPopup();
+      L.marker(['{{clinic.lat}}', '{{clinic.lon}}']).addTo(map).bindPopup("<strong>{{clinic.name}}</strong><br>{{clinic.address}}<br>{{clinic.services}}<br>{{clinic.description}}").openPopup();
+      //okay, I added the description and services information to the popup and it looks kind of strange. How do we want to display that information? I feel like it would work to have it open a window to the side of the page that lists all the information beyond name of clinic
 
+    {% endfor %}
+//don't worry about the red underlines this is an error that Mr. Wright says is not actually an error 
 </script>
 
 
