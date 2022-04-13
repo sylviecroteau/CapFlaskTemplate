@@ -16,7 +16,7 @@
         <div class="row border-bottom">
             <div class="col-1">
                 {% if loop.index == 1 %}
-                <h3 class="display-5"></h3>
+                <h3 class="display-2"></h3>
                 {% endif %}
 
                 <a href="/clinic/delete/{{clinic.id}}">
@@ -29,7 +29,7 @@
             </div>
             <div class="col-2">
                 {% if loop.index == 1 %}
-                <h3 class="display-5">Date</h3>
+                <h3 class="display-2">Date</h3>
                 {% endif %}
 
                 <a href="/clinic/{{clinic.id}}">
@@ -38,31 +38,31 @@
             </div>
             <div class="col">
                 {% if loop.index == 1 %}
-                    <h3 class="display-5">Name</h3>
+                    <h3 class="display-2">Name</h3>
                 {% endif %}
                 {{clinic.name}}
             </div>
             <div class="col">
                 {% if loop.index == 1 %}
-                    <h3 class="display-5">Services</h3>
+                    <h3 class="display-4">Services</h3>
                 {% endif %}
                 {{clinic.services}}
             </div>
             <div class="col">
                 {% if loop.index == 1 %}
-                    <h3 class="display-5">Address</h3>
+                    <h3 class="display-2">Address</h3>
                 {% endif %}
                 {{clinic.address}}
             </div>
             <div class="col">
                 {% if loop.index == 1 %}
-                    <h3 class="display-5">Description</h3>
+                    <h3 class="display-2">Description</h3>
                 {% endif %}
                 {{clinic.description}}
             </div>
             <div class="col">
                 {% if loop.index == 1 %}
-                    <h3 class="display-5">lat/lon</h3>
+                    <h3 class="display-2">lat/lon</h3>
                 {% endif %}
                 {{clinic.lat}}/{{clinic.lon}}
             </div>
