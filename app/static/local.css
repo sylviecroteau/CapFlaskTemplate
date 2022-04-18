@@ -11,3 +11,18 @@ html, body, #map {
     height: 100%;
     width: 100vw;
     } */
+
+
+body{
+    position: relative;
+}
+main{
+    margin-bottom: 220px;
+}
+.footer-bs{
+    position: absolute;
+    width: 100%;
+    min-height: 320px;
+    bottom: 40px;
+    left: 0;
+}
