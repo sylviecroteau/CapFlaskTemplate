@@ -23,6 +23,6 @@ main{
     position: absolute;
     width: 100%;
     min-height: 320px;
-    bottom: 40px;
-    left: 0;
+    bottom: -400px;
+    left: 20px;
 }
