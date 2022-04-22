@@ -154,8 +154,10 @@ def clinicEdit(clinicID):
     if form.validate_on_submit():
         # update() is mongoengine method for updating an existing document with new data.
         editClinic.update(
-            subject = form.subject.data,
-            content = form.content.data,
+            name = form.name.data,
+            services = form.services.data,
+            address = form.address.data,
+            description = form.description.data,
             modifydate = dt.datetime.utcnow,
             lat = form.lat.data,
             lon = form.lon.data
@@ -165,8 +167,13 @@ def clinicEdit(clinicID):
 
     # if the form has NOT been submitted then take the data from the editPost object
     # and place it in the form object so it will be displayed to the user on the template.
-    form.subject.data = editClinic.subject
-    form.content.data = editClinic.content
+    form.name.data = editClinic.name
+    form.services.data = editClinic.services
+    form.address.data = editClinic.address
+    form.description.data = editClinic.description
+    form.services.data = editClinic.services
+    form.lat.data = editClinic.lat
+    form.lon.data = editClinic.lon
 
     # Send the user to the post form that is now filled out with the current information
     # from the form.
