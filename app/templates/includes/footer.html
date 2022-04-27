@@ -1,42 +1,40 @@
-<footer class="footer-bs">
-    <div class="row justify-content-center">
-        <div class="col-md-3 footer-brand animated fadeInLeft" style="width: 100% !important">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="/">ACCESS</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                      <li class="nav-item">
-                        <a class="nav-link" href="/whyaccess">What is ACCESS?</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="/clinic/map">Clinic Locator</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="/clinic/list">Clinician Input</a>
-                      </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                      {% if current_user.is_anonymous %}
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-                        </li>
-                      {% else %}
-                        <li class="nav-item">
-                          <a class="nav-link" href="/myprofile">{{ current_user.username }}</a>
-                        </li>          
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
-                        </li>
-                        {% endif %}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-        </div>   
-    </div>
+<footer class="footer-bs border">
+  <div class="col-md-3 footer-brand animated fadeInLeft" style="width: 100% !important">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">ACCESS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="/whyaccess">What is ACCESS?</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/clinic/map">Clinic Locator</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/clinic/list">Clinician Input</a>
+                </li>
+              </ul>
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if current_user.is_anonymous %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                  </li>
+                {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="/myprofile">{{ current_user.username }}</a>
+                  </li>          
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                  </li>
+                  {% endif %}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+  </div>   
 </footer>

@@ -22,7 +22,7 @@ main{
 .footer-bs{
     position: absolute;
     width: 100%;
-    min-height: 320px;
+    min-height: 40px;
     bottom: -400px;
     left: 20px;
 }
