@@ -4,30 +4,20 @@
 
 {% block body %}
 
-<div class = "wrapper row" style="width: 100%; align-items: stretch;">
-
-  <nav id="sidebar"class="col" width="250px">
-    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-      <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-        <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-        <span class="fs-3 fw-semibold">Clinics</span>
-      </a>
-      <div class="list-group list-group-flush border-bottom scrollarea">
-        {% for clinic in clinics %}
-        <a href="#" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
-          <div class="d-flex w-100 align-items-center justify-content-between">
-            <strong class="mb-1">{{clinic.name}}</strong>
-          </div>
-          <div class="col-10 mb-1 small">{{clinic.address}}<br>{{clinic.services}}<br>{{clinic.description}}</div>
-        </a>
-        {% endfor %}
-    </div>
-  </nav>
-
-<div id="map" style="height: 850px; position: relative; "class="col"></div>
+<div class = "row border">
+  <div class="col-4 overflow-scroll" style="height: 850px">
+    <p class="fs-3 fw-semibold">Clinics</p>
+    {% for clinic in clinics %}
+      <strong class="mb-1">{{clinic.name}}</strong>
+      <p>{{clinic.address}}<br>{{clinic.services}}<br>{{clinic.description}}</p>
+    {% endfor %}
+  </div>
+  <div class="col-8">
+    <div id="map" style="height: 850px; position: relative; "></div>
+  </div>
 </div>
-<br>
-<br>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0-beta.1/leaflet.js"></script>
 
 <script type="text/javascript">

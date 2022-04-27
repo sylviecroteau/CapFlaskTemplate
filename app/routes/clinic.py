@@ -5,6 +5,7 @@
 from app import app, login
 import mongoengine.errors
 from flask import render_template, flash, redirect, url_for
+import requests
 from flask_login import current_user
 from app.classes.data import Clinic, Comment
 from app.classes.forms import ClinicForm, CommentForm
@@ -83,6 +84,21 @@ def clinicDelete(clinicID):
     # send a message to the user that the post was deleted.
     flash('The Clinic was deleted.')
     return redirect(url_for('clinicList'))
+
+#if there is time, we can switch this up to make it so that the user does not have to insert their own latitude and longitude 
+# def getLatLon(clinic):
+#     url = f"https://nominatim.openstreetmap.org/search?street={clinic.address}&city={city}&state={state}&postalcode={zipcode}&format=json&addressdetails=1&email=stephen.wright@ousd.org"
+#     r = requests.get(url)
+#     try:
+#         r = r.json()
+#     except:
+#         pass
+#     else:
+#         if len(r) != 0:
+#             editUser.lat = float(r[0]['lat'])
+#             editUser.lon = float(r[0]['lon'])
+#             flash('Updated lat/lon')
+#     flash('User edited.')
 
 # This route actually does two things depending on the state of the if statement 
 # 'if form.validate_on_submit()'. When the route is first called, the form has not 
